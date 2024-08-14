@@ -21,22 +21,20 @@ const Home = () => {
 
 
 
-
-  
   useEffect(()=>{
-    if(page !== null, totalPosts > 0){
-      dispatch(getAllPosts(`limit=12&skip=${((+page - 1) * limit) % 251}`))
+    if(page !== null && totalPosts > 0){
+      dispatch(getAllPosts(`limit=12&skip=${((+page - 1) * limit) % totalPosts}`))
     }else{
       dispatch(getAllPosts(`limit=12`))
     }
-  },[totalPosts, page])
+  },[page, totalPosts])
 
 
   useEffect(()=>{
     if(postsData){
       if(postsData.posts){
         setAllPosts(postsData.posts)
-        setTotalPosts(+postsData.total)
+        setTotalPosts(postsData.total)
       }
     }
   },[postsData])
@@ -57,7 +55,7 @@ const Home = () => {
         ))
       }
     </div>
-    <Pagination totalPosts={totalPosts} getLimit={getLimit}/>
+    <Pagination totalPosts={totalPosts} getLimit={getLimit} pageNumber={+page}/>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { getAllPosts } from "../redux/actions/postsAction"
 import Pagination from '../utils/Pagination'
 import BlogCard from '../components/BlogCard'
-import { useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 
 
@@ -15,23 +15,34 @@ const Home = () => {
   const postsData = useSelector(state=> state.postsReducer.posts)
   const dispatch = useDispatch()
 
+  const [searchParams] = useSearchParams()
+  const page = searchParams.get("page")
+  const limit = 12
 
+
+
+
+  
   useEffect(()=>{
-    dispatch(getAllPosts(`limit=12`))
-  },[])
+    if(page !== null, totalPosts > 0){
+      dispatch(getAllPosts(`limit=12&skip=${((+page - 1) * limit) % 251}`))
+    }else{
+      dispatch(getAllPosts(`limit=12`))
+    }
+  },[totalPosts, page])
 
 
   useEffect(()=>{
     if(postsData){
       if(postsData.posts){
         setAllPosts(postsData.posts)
-        setTotalPosts(postsData.total)
+        setTotalPosts(+postsData.total)
       }
     }
   },[postsData])
 
   //handel pagination
-  const getLimit = async (newOffset, page) => {
+  const getLimit = async (newOffset) => {
     dispatch(getAllPosts(`limit=12&skip=${newOffset}`))
   };
 

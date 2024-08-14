@@ -1,19 +1,37 @@
+import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const Pagination = ({totalPosts, getLimit}) => {
+  const [pageNumber, setPageNumber] = useState(null)
   const limit = 12;
+
+  const navigate = useNavigate()
+  
+  const [searchParams] = useSearchParams()
+  const page = searchParams.get("page")
+
+
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * limit) % totalPosts;
-    getLimit(newOffset, event.selected);
+    getLimit(newOffset);
+    navigate(`?page=${event.selected + 1}`)
   };
 
   const pageCount = Math.ceil(totalPosts / limit);
+
+  useEffect(()=>{
+    if(page){
+      setPageNumber(+page - 1)
+    }
+  },[page])
 
   return (
       <ReactPaginate
         breakLabel="..."
         nextLabel="Next"
+        forcePage={pageNumber}
         onPageChange={handlePageClick}
         pageRangeDisplayed={2}
         pageCount={pageCount}

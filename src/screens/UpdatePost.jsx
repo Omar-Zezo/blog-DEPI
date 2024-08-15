@@ -19,13 +19,13 @@ const UpdatePost = () => {
 
   const {id} = useParams()
 
-  const successMsg = () => toast.success("Post Added Successfly");
+  const successMsg = () => toast.success("Post Edited Successfly");
   const errorMsg = (msg) => toast.error(msg);
 
   useEffect(()=>{
     if(editPostData){
       console.log(editPostData)
-      if(editPostData.status === 201){
+      if(editPostData.status === 200){
         successMsg()
       }
     }
@@ -49,7 +49,7 @@ const UpdatePost = () => {
         editPost(
             id,
           JSON.stringify({
-            title,
+            title: postTitle
           })
         )
       )
@@ -74,7 +74,7 @@ const UpdatePost = () => {
             value={postTitle}
             id="title"
             placeholder="Title"
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setPostTitle(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-2">

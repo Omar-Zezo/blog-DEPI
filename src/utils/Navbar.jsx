@@ -63,7 +63,7 @@ const Navbar = ({ getMode }) => {
               <img
                 className="cursor-pointer"
                 width={30}
-                src={Moon}
+                src={Sun}
                 alt="dark-mode"
                 onClick={() => {
                   getMode("dark");
@@ -75,7 +75,7 @@ const Navbar = ({ getMode }) => {
               <img
                 className="cursor-pointer"
                 width={30}
-                src={Sun}
+                src={Moon}
                 alt="light-mode"
                 onClick={() => {
                   getMode("light");

@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 const Pagination = ({totalPosts, getLimit, pageNumber}) => {
   const limit = 12;
-  const navigate = useNavigate()
   
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * limit) % totalPosts;
-    getLimit(newOffset);
-    navigate(`?page=${event.selected + 1}`)
+    getLimit(newOffset, event.selected);
   };
 
   const pageCount = Math.ceil(totalPosts / limit);

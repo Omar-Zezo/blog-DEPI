@@ -20,7 +20,9 @@ const BlogPage = () => {
 
   //get Single post Data
   useEffect(()=>{
-    dispatch(getSinglePost(id))
+    if(id){
+      dispatch(getSinglePost(id))
+    }
   },[id])
 
 

@@ -26,8 +26,9 @@ const SearchPage = () => {
   const total = searchParams.get("total");
   const value = searchParams.get("value");
 
+
   useEffect(() => {
-    if (value) {
+    if (value !== null) {
       dispatch(
         getPostsSearch(
           `q=${value}&sortBy=${sortBy ? sortBy : "id"}&order=${
@@ -40,9 +41,9 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (searchPostsData) {
-      setTotalPosts(searchPostsData.total);
       if (searchPostsData.posts) {
         setPosts(searchPostsData.posts);
+        setTotalPosts(searchPostsData.total);
       }
     }
   }, [searchPostsData]);

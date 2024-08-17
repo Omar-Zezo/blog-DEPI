@@ -28,7 +28,7 @@ const TagPage = () => {
 
   
   useEffect(() => {
-    if(slug){
+    if(slug !== null){
       dispatch(
         getPostsTag(slug,
           `sortBy=${sortBy ? sortBy : "id"}&order=${

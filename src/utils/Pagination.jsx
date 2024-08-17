@@ -1,7 +1,6 @@
 import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router-dom";
 
-const Pagination = ({totalPosts, getLimit, pageNumber}) => {
+const Pagination = ({totalPosts, getLimit, pageNumber, order, sortBy, sorting, dispatchMethod}) => {
   const limit = 12;
   
 

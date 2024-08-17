@@ -1,5 +1,5 @@
 import baseURL from "../../api/baseURL"
-import { GET_ALL_POSTS, ADD_NEW_POST, EDIT_POST, DELETE_POST, SINGLE_POST } from "../types"
+import { GET_ALL_POSTS, ADD_NEW_POST, EDIT_POST, DELETE_POST, SINGLE_POST, POSTS_SEARCH } from "../types"
 
 export const getAllPosts = (str)=> async(dispatch)=>{
     try{
@@ -7,6 +7,15 @@ export const getAllPosts = (str)=> async(dispatch)=>{
         dispatch({type: GET_ALL_POSTS, payload: res.data})
     }catch(error){
         dispatch({type: GET_ALL_POSTS, payload: error.response})
+    }
+}
+
+export const getPostsSearch = (str)=> async(dispatch)=>{
+    try{
+        const res = await baseURL.get(`/posts/search?${str}`)
+        dispatch({type: POSTS_SEARCH, payload: res.data})
+    }catch(error){
+        dispatch({type: POSTS_SEARCH, payload: error.response})
     }
 }
 

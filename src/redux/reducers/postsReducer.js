@@ -4,6 +4,7 @@ import {
   ADD_NEW_POST,
   EDIT_POST,
   DELETE_POST,
+  POSTS_SEARCH
 } from "../types";
 
 const initState = {
@@ -12,12 +13,15 @@ const initState = {
   addPost: [],
   editPost: [],
   deletePost: [],
+  searchPosts: []
 };
 
 const postsReducer = (state = initState, action) => {
   switch (action.type) {
     case GET_ALL_POSTS:
       return { posts: action.payload };
+    case POSTS_SEARCH:
+      return { searchPosts: action.payload };
     case SINGLE_POST:
       return { singlePost: action.payload };
     case ADD_NEW_POST:

@@ -125,6 +125,7 @@ const Navbar = ({ getMode }) => {
             <NavLink
               className="text-xl font-medium text-zinc-900 dark:text-white hover:text-blue-500"
               to={"/"}
+              onClick={() => setShowMenu(false)}
             >
               Home
             </NavLink>
@@ -146,13 +147,13 @@ const Navbar = ({ getMode }) => {
             >
               {allTags.map((tag) => (
                 <li key={tag.name}>
-                  <Link
+                  <NavLink
                     to={`/tag/${tag.slug}`}
                     className="text-base underline text-zinc-900 dark:text-white hover:text-blue-500"
                     onClick={()=> setShowMenu(false)}
                   >
                     {tag.name}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>

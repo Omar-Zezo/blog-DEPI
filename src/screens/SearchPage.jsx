@@ -18,7 +18,7 @@ const SearchPage = () => {
   const dispatch = useDispatch();
 
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const page = searchParams.get("page");
   const sortBy = searchParams.get("sortBy");
@@ -26,17 +26,17 @@ const SearchPage = () => {
   const total = searchParams.get("total");
   const value = searchParams.get("value");
 
-
   useEffect(() => {
-    dispatch(
-      getPostsSearch(
-        `q=${value}&sortBy=${sortBy ? sortBy : "id"}&order=${
-          order ? order : "asc"
-        }&limit=${limit}&skip=${page ? ((+page - 1) * limit) % +total : 0}`
-      )
-    );
-  }, [order, sortBy, page]);
-
+    if (value) {
+      dispatch(
+        getPostsSearch(
+          `q=${value}&sortBy=${sortBy ? sortBy : "id"}&order=${
+            order ? order : "asc"
+          }&limit=${limit}&skip=${page ? ((+page - 1) * limit) % +total : 0}`
+        )
+      );
+    }
+  }, [order, sortBy, page, value]);
 
   useEffect(() => {
     if (searchPostsData) {
@@ -55,16 +55,22 @@ const SearchPage = () => {
       )
     );
     navigate(
-      `?value=${value}&page=${selected + 1}&sortBy=${sortBy ? sortBy : "id"}&order=${
-        order ? order : "asc"
-      }&total=${totalPosts}`
+      `?value=${value}&page=${selected + 1}&sortBy=${
+        sortBy ? sortBy : "id"
+      }&order=${order ? order : "asc"}&total=${totalPosts}`
     );
   };
 
-
   return (
     <div className="w-[90%] mx-auto min-h-screen pt-[120px] pb-5">
-      <SortPosts sortBy={sortBy} order={order} totalPosts={totalPosts} page={page} setSorting={setSorting} searchValue={value}/>
+      <SortPosts
+        sortBy={sortBy}
+        order={order}
+        totalPosts={totalPosts}
+        page={page}
+        setSorting={setSorting}
+        searchValue={value}
+      />
       <h1 className="lg:text-3xl text-xl font-bold capitalize mb-10 shadow-blue-400 shadow-sm border-2 border-blue-400 text-zinc-900 dark:text-white w-fit mx-auto p-3 dark:bg-zinc-900 bg-slate-200 rounded-md">
         Search Results related to : {value}
       </h1>

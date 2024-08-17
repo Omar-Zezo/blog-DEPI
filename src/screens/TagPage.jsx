@@ -28,14 +28,16 @@ const TagPage = () => {
 
   
   useEffect(() => {
-    dispatch(
-      getPostsTag(slug,
-        `sortBy=${sortBy ? sortBy : "id"}&order=${
-          order ? order : "asc"
-        }&limit=${limit}&skip=${page ? ((+page - 1) * limit) % +total : 0}`
-      )
-    );
-  }, [order, sortBy]);
+    if(slug){
+      dispatch(
+        getPostsTag(slug,
+          `sortBy=${sortBy ? sortBy : "id"}&order=${
+            order ? order : "asc"
+          }&limit=${limit}&skip=${page ? ((+page - 1) * limit) % +total : 0}`
+        )
+      );
+    }
+  }, [order, sortBy, slug]);
 
 
   useEffect(() => {
